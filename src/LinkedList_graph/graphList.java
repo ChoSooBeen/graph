@@ -1,5 +1,7 @@
 package LinkedList_graph;
 
+import java.util.Stack;
+
 class graphList {
     private gNode head[]; //정점의 리스트
     private int v; //현재 정점의 개수(=정점 중 가장 큰 수)
@@ -31,7 +33,40 @@ class graphList {
         }
     }
 
-    public void DFS(int v) {
+    public void DFS(int v, int n) { // v = 시작 정점, n = 정점의 수
+        Stack<Integer> stack = new Stack<>();
+        boolean visited[] = new boolean[n+1];
 
+        // 탐색 시작 정점 v
+        stack.push(v);
+        visited[v] = true;
+        System.out.print("DFS 탐색 순서: " + v);
+
+        while (!stack.isEmpty()){
+            gNode w = head[v]; //현재 탐색하고 있는 정점
+
+            /**
+             * w == null 이라는 것 = head[v] 리스트는 전부 탐색을 완료했다는 것
+             * 즉, while 문이 종료되었다는 것은 현재 스택의 가장 위에 있는 값은 사용 완료했다는 의미이다.
+             */
+            while(w != null) {
+                if(!visited[w.vertex]) {
+                    stack.push(w.vertex);
+                    visited[w.vertex] = true;
+                    System.out.print(" -> " + w.vertex);
+                    v = w.vertex;
+                    w = head[v];
+                }
+                else {
+                    w = w.link;
+                }
+            }
+            //사용완료한 값(=가장 위의 값)은 제거하고
+            stack.pop();
+            //스택이 비어있지 않다면 현재 스택의 가장 위의 값을 v로 저장한다.
+            if(!stack.isEmpty()) {
+                v = stack.peek();
+            }
+        }
     }
 }

@@ -45,5 +45,8 @@ public class graph_link {
             g.insertEdge(tmp[i][0],tmp[i][1]);
         }
         g.printGraph();
+        System.out.println("\n");
+
+        g.DFS(1, N);
     }
 }
