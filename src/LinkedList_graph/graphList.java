@@ -1,5 +1,7 @@
 package LinkedList_graph;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 class graphList {
@@ -66,6 +68,26 @@ class graphList {
             //스택이 비어있지 않다면 현재 스택의 가장 위의 값을 v로 저장한다.
             if(!stack.isEmpty()) {
                 v = stack.peek();
+            }
+        }
+    }
+    public void BFS(int v, int n){ //시작 정점 v, 정점의 개수 n
+        Queue<Integer> queue = new LinkedList<>();
+        boolean visited[] = new boolean[n+1]; // 방문 여부를 검사할 배열
+
+        //탐색 시작 정점
+        queue.offer(v); //enQueue()
+        visited[v] = true;
+        System.out.print("BFS 탐색 순서: " + v);
+
+        while(!queue.isEmpty()) {
+            v = queue.poll(); //deQueue()
+            for(gNode w = head[v]; w != null; w = w.link){
+                if(!visited[w.vertex]){
+                    visited[w.vertex] = true;
+                    queue.offer(w.vertex);
+                    System.out.print(" -> " + w.vertex);
+                }
             }
         }
     }

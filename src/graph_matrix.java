@@ -1,10 +1,12 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-public class DFS_matrix {
+public class graph_matrix {
     static void DFS(int[][] graph, int v) {
         //스택을 이용안 DFS
         Stack<Integer> stack = new Stack<>();
@@ -50,6 +52,28 @@ public class DFS_matrix {
             }
         }
     }
+
+    static void BFS(int[][] graph, int v) {
+        //큐를 이용한 BFS
+        Queue<Integer> queue = new LinkedList<>();
+        boolean visited[] = new boolean[graph.length]; // 방문 여부를 검사할 배열
+
+        //처음 탐색할 정점 v
+        queue.offer(v);
+        visited[v] = true;
+        System.out.print("BFS 탐색 순서 : " + v);
+
+        while(!queue.isEmpty()){
+            int w = queue.poll();
+            for(int i = 1; i < graph.length; i++) {
+                if(graph[w][i] == 1 && !visited[i]) {
+                    queue.offer(i);
+                    visited[i] = true;
+                    System.out.print(" -> " + i);
+                }
+            }
+        }
+    }
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 
@@ -67,5 +91,8 @@ public class DFS_matrix {
             graph[y][x] = 1;
         }
         DFS(graph, 1);
+        System.out.println();
+
+        BFS(graph, 1);
     }
 }

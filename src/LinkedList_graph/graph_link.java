@@ -48,5 +48,8 @@ public class graph_link {
         System.out.println("\n");
 
         g.DFS(1, N);
+        System.out.println();
+
+        g.BFS(1, N);
     }
 }
